@@ -1,5 +1,8 @@
 clear all; close all; clc;
+format short; 
+format compact;
 
+%% 
 HuffmanObject = importdata('HuffmanText.mat');
 char = HuffmanObject.AsciiChar;
 prob = HuffmanObject.AsciiProb;
@@ -13,7 +16,15 @@ prob = HuffmanObject.AsciiProb;
     minProb = min(prob);
     
 %% Encode/Decode
-    text = ('a "typical" text string reduced using Huffman coding?');
-    enco = huffmanenco(text, dict);
-    deco = huffmanenco(enco, dict);
-    equal = isequal(text,deco)
+    string = ('a "typical" text string reduced using Huffman coding?');
+    
+    string_binary = dec2bin(string);
+    num_string = numel(string_binary);
+    
+    enco = huffmanenco(string, dict);
+    d2b_enco = de2bi(enco);
+    num_enco = numel(enco);
+
+    comression = num_enco/num_string;
+    reduction = (num_string-num_enco)/num_string;
+    
